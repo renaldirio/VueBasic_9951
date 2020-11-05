@@ -7,24 +7,42 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="vue.js"></script>
 </head>
-<body>
+<body style="background: #888850;">
     <div id="app">
+        <div class="col-4 justify-content-center mx-auto h-100" style="overflow-y: auto;max-height: 370px;">
+            <div v-for="(todo,index) in todos" :key="index">
+                <div class="card">
+                    <div class="card-body">
+                        <span class="float-right">
+                            <button class="btn btn-sm" @click="del(index)">X</button>
+                        </span>
+                        <span v-if="todo.prioritas == 'penting'" class="badge badge-light text-danger">{{ todo.prioritas }}</span>
+                        <span v-else-if="todo.prioritas == 'biasa'" class="badge badge-light text-primary">{{ todo.prioritas }}</span>
+                        <span v-else-if="todo.prioritas == 'tidak penting'" class="badge badge-light text-success">{{ todo.prioritas }}</span>
+                        <br>
+                        <h5 class="card-title">{{ todo.judul }}</h5>
+                        <p class="card-text">{{ todo.catatan }}</p>
+                    </div>
+                </div>
+                <div><br></div>
+            </div>
+        </div>
         <div class="col-4 justify-content-center mx-auto mt-4">
             <div class="card p-4">
                 <div class="form-group">
-                    <label for="judul"><strong>apa yang kamu kerjakan ?</strong> </label>
+                    <label for="judul"><strong>Apa yang kamu kerjakan ?</strong> </label>
                     <input type="text"  class="form-control" id="judul" >
                 </div>
                 <div class="form-group">
-                    <label for="prioritas"><strong>penting ga ?</strong> </label>
+                    <label for="prioritas"><strong>Penting ga ?</strong> </label>
                     <select name="prioritas"  id="prioritas" class="form-control">
-                        <option value="penting">penting</option>
-                        <option value="biasa">biasa</option>
-                        <option value="tidak penting">tidak penting</option>
+                        <option value="penting">Penting</option>
+                        <option value="biasa">Biasa</option>
+                        <option value="tidak penting">Tidak penting</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="catatan"><strong>ada catatan penting ?</strong> </label>
+                    <label for="catatan"><strong>Ada catatan penting ?</strong> </label>
                     <textarea class="form-control" id="catatan"></textarea>
                 </div>
                 <div>
@@ -32,31 +50,51 @@
                     <button class="btn btn-primary" @click="save">Save</button>
                 </div>
             </div>
-        </div>
+        </div>        
+        <footer class="text-center mt-5">
+            {{ `${mhs.nama} | ${mhs.npm} | ${mhs.kelas}` }}
+        </footer>
     </div>
 </body>
 <script>
     new Vue({
         el: "#app",
         data: {
-            todo:[]
+            todos:[
+
+            ],
+            mhs: {
+                nama:'Yohanes Renaldi Rio Santana',
+                npm: '180709951',
+                kelas: 'C',
+                 },
             },
         methods: {
-           save(){
-            const judul = document.getElementById('judul');
-            const prioritas  = document.getElementById('prioritas');
-            const catatan = document.getElementById('catatan');
-
-            const todos
-           },
-           delete(){
-
-           },
-           reset(){
-
-           },
+            save() {
+                let catatan = document.getElementById('catatan');
+                let judul = document.getElementById('judul');
+                let prioritas = document.getElementById('prioritas');
+                
+                let todo = {
+                    judul : judul.value,
+                    prioritas : prioritas.value,
+                    catatan : catatan.value,
+                }
+                document.getElementById('catatan').value="";
+                document.getElementById('judul').value="";
+                document.getElementById('prioritas').value="";
+                this.todos.push(todo);
+                console.log(this.todos);
+            },
+            reset(){
+                document.getElementById('catatan').value="";
+                document.getElementById('judul').value="";
+                document.getElementById('prioritas').value="";
+            },
+            del(index){
+                this.todos.splice(index,1);
+            },
         },
- 
     });
 </script>
 </html>
