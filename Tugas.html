@@ -14,12 +14,11 @@
                 <div class="card">
                     <div class="card-body">
                         <span class="float-right">
-                            <button class="btn btn-sm" @click="del(index)">X</button>
+                            <button type="button" class="btn btn-danger" style="margin-top: 30px;" @click="del(index)">Delete</button>
                         </span>
-                        <span v-if="todo.prioritas == 'penting'" class="badge badge-light text-danger">{{ todo.prioritas }}</span>
-                        <span v-else-if="todo.prioritas == 'biasa'" class="badge badge-light text-primary">{{ todo.prioritas }}</span>
-                        <span v-else-if="todo.prioritas == 'tidak penting'" class="badge badge-light text-success">{{ todo.prioritas }}</span>
-                        <br>
+                        <h4><span v-if="todo.prioritas == 'penting'" class="badge text-danger">{{ todo.prioritas }}</span>
+                        <span v-else-if="todo.prioritas == 'biasa'" class="badge text-primary">{{ todo.prioritas }}</span>
+                        <span v-else-if="todo.prioritas == 'tidak penting'" class="badge text-success">{{ todo.prioritas }}</span></h4>
                         <h5 class="card-title">{{ todo.judul }}</h5>
                         <p class="card-text">{{ todo.catatan }}</p>
                     </div>
